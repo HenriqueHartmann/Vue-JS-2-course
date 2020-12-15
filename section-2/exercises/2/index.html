@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- EXERCISE 1: Make the bellow text input update a data property on every
+        "keyup" event. Also output the data properly.
+        Hint: event.target.value gives access to input value. -->
+        <input type="text" v-on:keyup="updateText">
+        Output: {{ text }}
+
+        <br></br>
+
+        <!-- EXERCISE 2: Make the bellow text input update the data from
+        exercise 1, but only when pressing the control + Enter keys.
+        Hint: The key modifier for the Control key is named "ctrl" -->
+        <input type="text" v-on:keyup.ctrl.enter="updateText">
+        Output: {{ text }}
+        
+        <br></br>
+        
+        <!-- EXERCISE 3: Prevent the bellow form from the submitting.
+        Hint: Prevent the "submit" event on the form. -->
+        <form action="" method="GET" v-on:submit.prevent>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                text: ""
+            },
+            methods: {
+                updateText: function(event) {
+                    this.text = event.target.value;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

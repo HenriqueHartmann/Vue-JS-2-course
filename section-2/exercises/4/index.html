@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- EXERCISE 1: Add a computed property which returns an array of strings
+        with the movie name followed by the release year in parenthesis.
+        Then output these strings as an ordered list. -->
+        <ol>
+            <li v-for="movie in movieYear">{{ movie }}</li>
+        </ol>
+
+        <!-- EXERCISE 2: Make the button below add a movie of your choice to the
+        "movies" data property. Then add a watcher which outputs the movie that
+        was just added in an alert dialog. -->
+        <input type="text" placeholder="movie name" v-model="name">
+        <input type="number" placeholder="movie year" v-model="year">
+        <button v-on:click="addMovie">Add Movie</button>
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                name: '',
+                year: '',
+                movies: [
+                    { name: 'The Matrix', year: 1999 },
+                    { name: 'The Matrix Reloaded', year: 2003 },
+                    { name: 'The Matrix Revolution', year: 2003 }
+                ]
+            },
+            methods: {
+                addMovie: function () {
+                    this.movies.push(
+                        { 
+                            name: this.name,
+                            year: this.year
+                        }
+                    );
+                }
+            },
+            computed: {
+                movieYear: function () {
+                    let editedMovies = [];
+                    for (var i = 0; i < this.movies.length; i++) {
+                        movie = this.movies[i];
+                        editedMovies.push(movie.name + " (" + movie.year + ")");
+                    }
+                    return editedMovies;
+
+                    // OR
+                    // return this.movies.map(function(movie) {
+                    //     return movie.name + ' (' + movie.year + ')';
+                    // });
+
+                }
+            },
+            watch: {
+                movies: function (movies) {
+                    var last = this.movies[movies.length - 1];
+                    alert(last.name + " from" + last.year + " was just added!")
+                }
+            }
+        })
+    </script>
+</body>
+</html>
